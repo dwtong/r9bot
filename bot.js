@@ -21,7 +21,7 @@ controller.spawn({
 
 });
 
-// Web server that can be called, to keep Heroku's free dyno awake
+// Web server that can be pinged to keep Heroku's free tier dyno awake
 http.createServer(function(request, response) {
   response.writeHead(200, {
     'Content-Type': 'text/plain'
@@ -30,6 +30,7 @@ http.createServer(function(request, response) {
 }).listen(process.env.PORT || 5000);
 
 // Tell the user the number of days left until demo day
+// Only respond when user mentions bot's username or dm's it
 controller.hears('.*(demo day).*', ['direct_message', 'direct_mention', 'mention'], function(bot, message) {
   var DAY = 1000 * 60 * 60 * 24;
 
@@ -44,6 +45,7 @@ controller.hears('.*(demo day).*', ['direct_message', 'direct_mention', 'mention
 });
 
 // Say unicorn facts whenever anyone mentions unicorns
+// Listens to all messages in channel - user doesn't need to dm bot
 controller.hears('.*(unicorn).*', ['ambient'], function(bot, message) {
   var facts = require('./unicorn-facts');
 
@@ -55,6 +57,8 @@ controller.hears('.*(unicorn).*', ['ambient'], function(bot, message) {
 // Respond when user says thanks
 controller.hears(['thanks', 'thank you'], ['direct_message', 'direct_mention', 'mention'], function(bot, message) {
   var replies = ['The pleasure is all mine.', 'No, thank you.', 'No worries! That\'s what I\'m here for.'];
+
+  // Choose random reply
   var reply = replies[Math.floor(Math.random() * replies.length)];
   bot.reply(message, reply);
 });

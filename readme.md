@@ -1,7 +1,6 @@
-To run locally, without having to add slack API token to your environment:
-
-
-Keeping Heroku dyno awake
+## Getting set up
+1. Fork or clone this repo
+2. Run `npm install` in repo dir
 
 ## Setting up Slack
 1. Create a new Bot [Custom Integration](https://my.slack.com/apps/manage/custom-integrations) in Slack.
@@ -14,5 +13,11 @@ Keeping Heroku dyno awake
 3. Update Heroku env variables:
     - `heroku config:set SLACK_TOKEN=<your slack API token>`
     - `heroku config:add TZ="Pacific/Auckland"` (or choose your own timezone)
+4. Set up a heroku scheduler to make a request to the app server every 10 mins, to keep the dyno awake on Heroku free tier
+    - `heroku addons:create scheduler:standard`
+    - `heroku addons:open scheduler`
+    - Set command to make a curl request to your heroku web server every 10 mins
+
 ## Other Tips
-- To run this locally, without having to add Slack token to your env, use the command: `SLACK_TOKEN=<your slack API token> node bot.js`
+- To run this locally, without having to add Slack token to your env, use the command: `SLACK_TOKEN=<your slack API token> node bot.js`.
+- Otherwise, add your slack token to your local env.

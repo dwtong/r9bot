@@ -1,5 +1,4 @@
 var Botkit = require('botkit');
-var HerokuKeepalive = require('@ponko2/botkit-heroku-keepalive');
 
 var controller = Botkit.slackbot({
   debug: false
@@ -11,13 +10,6 @@ if (!process.env.SLACK_TOKEN) {
   process.exit(1);
 }
 
-var herokuKeepalive;
-
-// Ensure that Heroku server doesn't sleep
-controller.setupWebserver(process.env.PORT || 8080, function (err, webserver) {
-  herokuKeepalive = new HerokuKeepalive(controller);
-});
-
 // connect the bot to slack, using API token stored in environment
 controller.spawn({
   token: process.env.SLACK_TOKEN
@@ -26,7 +18,6 @@ controller.spawn({
     throw new Error(err);
   }
 
-  herokuKeepalive.start();
 });
 
 // Tell the user the number of days left until demo day
@@ -50,21 +41,4 @@ controller.hears('.*(unicorn).*', ['ambient'], function(bot, message) {
   // Choose random fact from array of facts
   var fact = facts[Math.floor(Math.random() * facts.length)];
   bot.reply(message, fact);
-});
-
-// Ensure that Heroku server doesn't sleep
-var herokuKeepalive;
-
-controller.setupWebserver(process.env.PORT || 8080, function (err, webserver) {
-  herokuKeepalive = new HerokuKeepalive(controller);
-});
-
-controller.spawn({
-  token: process.env.BOTKIT_SLACK_TOKEN
-}).startRTM(function (err) {
-  if (err) {
-    throw new Error(err);
-  }
-
-  herokuKeepalive.start();
 });

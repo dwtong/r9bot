@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "bot.js",
-  "dependencies": {},
+  "dependencies": {
+    "botkit": "0.0.12"
+  },
   "devDependencies": {},
   "scripts": {
     "start": "node bot.js"

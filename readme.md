@@ -1,12 +1,12 @@
-## Purpose
-A Slack bot I've created for the teams in the [R9 Accelerator 2.0 programme](http://www.r9accelerator.co.nz/).
+## About
+A Slack bot I've created for the teams in the [R9 Accelerator 2.0 programme](http://www.r9accelerator.co.nz/), using howdy.ai botkit.
 
 ## Getting set up
 1. Fork or clone this repo
 2. Run `npm install` in repo directory.
 
 ## Setting up Slack
-1. Create a new Bot [Custom Integration](https://my.slack.com/apps/manage/custom-integrations) in Slack.
+1. Create a new Bot [Custom Integration](https://my.slack.com/apps/build/custom-integration) in Slack.
 2. Give it a name, and take note of the API Token.
 
 ## Setting Up Heroku
@@ -24,3 +24,6 @@ A Slack bot I've created for the teams in the [R9 Accelerator 2.0 programme](htt
 ## Other Tips
 - To run this locally, without having to add Slack token to your env, use the command: `SLACK_TOKEN=<your slack API token> node bot.js`.
 - Otherwise, add your slack token to your local env.
+
+## Other Resources
+- [Botkit Docs](http://howdy.ai/botkit/docs/)

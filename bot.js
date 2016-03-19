@@ -5,7 +5,7 @@ var controller = Botkit.slackbot({
 });
 
 // Check that slack API token is specified in environment
-if (!process.env.token) {
+if (!process.env.SLACK_TOKEN) {
   console.log('Error: Specify token in environment');
   process.exit(1);
 }

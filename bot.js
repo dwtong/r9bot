@@ -14,12 +14,20 @@ if (!process.env.SLACK_TOKEN) {
 // connect the bot to slack, using API token stored in environment
 controller.spawn({
   token: process.env.SLACK_TOKEN
-}).startRTM(function (err) {
+}).startRTM(function(err) {
   if (err) {
     throw new Error(err);
   }
 
 });
+
+// Web server that can be called, to keep Heroku's free dyno awake
+http.createServer(function(request, response) {
+  response.writeHead(200, {
+    'Content-Type': 'text/plain'
+  });
+  response.end('Ok, dyno is awake.');
+}).listen(process.env.PORT || 5000);
 
 // Tell the user the number of days left until demo day
 controller.hears('.*(demo day).*', ['direct_message', 'direct_mention', 'mention'], function(bot, message) {
@@ -44,8 +52,9 @@ controller.hears('.*(unicorn).*', ['ambient'], function(bot, message) {
   bot.reply(message, fact);
 });
 
-// To keep Heroku's free dyno awake
-http.createServer(function(request, response) {
-    response.writeHead(200, {'Content-Type': 'text/plain'});
-    response.end('Ok, dyno is awake.');
-}).listen(process.env.PORT || 5000);
+// Respond when user says thanks
+controller.hears(['thanks', 'thank you'], ['direct_message', 'direct_mention', 'mention'], function(bot, message) {
+  var replies = ['The pleasure is all mine.', 'No, thank you.', 'No worries! That\'s what I\'m here for.'];
+  var reply = replies[Math.floor(Math.random() * replies.length)];
+  bot.reply(message, reply);
+});

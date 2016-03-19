@@ -14,14 +14,5 @@ Keeping Heroku dyno awake
 3. Update Heroku env variables:
     - `heroku config:set SLACK_TOKEN=<your slack API token>`
     - `heroku config:add TZ="Pacific/Auckland"` (or choose your own timezone)
-    - `heroku config:set BOTKIT_HEROKU_KEEPALIVE_URL=$(heroku apps:info -s | grep web-url | cut -d= -f2)`
-    - `heroku config:set BOTKIT_HEROKU_KEEPALIVE_INTERVAL=5`
-    - `heroku config:set BOTKIT_HEROKU_WAKEUP_TIME=6:00`
-    - `heroku config:set BOTKIT_HEROKU_SLEEP_TIME=22:00`
-4. Set up heroku scheduler (for keepalive module):
-    - `heroku addons:create scheduler:standard`
-    - `heroku addons:open scheduler`
-    - Command for scheduler is `curl ${BOTKIT_HEROKU_KEEPALIVE_URL}heroku/keepalive`
-    - Next due time for Pacific/Auckland TZ is 17:00 UTC
 ## Other Tips
 - To run this locally, without having to add Slack token to your env, use the command: `SLACK_TOKEN=<your slack API token> node bot.js`

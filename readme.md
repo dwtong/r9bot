@@ -1,6 +1,9 @@
+## Purpose
+A Slack bot I've created for the teams in the [R9 Accelerator 2.0 programme](http://www.r9accelerator.co.nz/).
+
 ## Getting set up
 1. Fork or clone this repo
-2. Run `npm install` in repo dir
+2. Run `npm install` in repo directory.
 
 ## Setting up Slack
 1. Create a new Bot [Custom Integration](https://my.slack.com/apps/manage/custom-integrations) in Slack.

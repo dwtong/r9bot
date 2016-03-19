@@ -12,13 +12,12 @@ if (!process.env.SLACK_TOKEN) {
 }
 
 // connect the bot to slack, using API token stored in environment
-controller.spawn({
+var bot = controller.spawn({
   token: process.env.SLACK_TOKEN
 }).startRTM(function(err) {
   if (err) {
     throw new Error(err);
   }
-
 });
 
 // Web server that can be pinged to keep Heroku's free tier dyno awake
